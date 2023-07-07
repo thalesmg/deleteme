@@ -1,0 +1,19 @@
+name: poke
+
+on:
+  workflow_dispatch:
+    inputs: null
+
+jobs:
+  poke:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: run script
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          pip install PyGithub==1.59.0
+          ./poke_prs.py -r "thalesmg/deleteme" -b "main"
