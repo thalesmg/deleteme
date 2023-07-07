@@ -1,0 +1,18 @@
+name: Upload release assets
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  upload:
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+    steps:
+      - name: trigger re-run of app versions check
+        uses: peter-evans/repository-dispatch@v2.1.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          event-type: new_release_published
+          client-payload: '{"version": "${{ steps.profile.outputs.version }}"}'

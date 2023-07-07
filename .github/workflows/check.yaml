@@ -1,0 +1,15 @@
+name: Check Apps Version
+
+on:
+  pull_request: {}
+  repository_dispatch:
+    types: [new_release_published]
+
+jobs:
+  check_apps_version:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Check apps version
+        run: date
